@@ -36,7 +36,7 @@ jobs:
         working-directory: ./srm-fm-frontend
         run: |
           npm install
-          npm run build -- --configuration=production
+          npm run build -- --configuration=production --prerender=false
 
       - name: Build Spring Boot (test)
         working-directory: ./backend

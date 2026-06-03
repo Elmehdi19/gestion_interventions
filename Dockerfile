@@ -5,7 +5,7 @@ COPY srm-fm-frontend/package*.json ./
 RUN npm install
 COPY srm-fm-frontend/ ./
 # Assurez-vous que le script de build génère les fichiers dans dist/ (par défaut)
-RUN npm run build -- --configuration=production
+RUN npm run build -- --configuration=production --prerender=false
 
 # ========== Étape 2 : build Spring Boot ==========
 FROM maven:3.9-eclipse-temurin-17-alpine AS backend-build
