@@ -1,0 +1,43 @@
+<div class="min-h-screen flex items-center justify-center bg-surface p-4">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"
+        class="bg-surface-container-lowest p-8 rounded-xl shadow-lg w-full max-w-md space-y-5">
+    
+    <h2 class="text-headline-md text-primary font-bold text-center">Connexion</h2>
+
+    <div>
+      <label class="text-label-md block mb-1">Email</label>
+      <input formControlName="email" type="email"
+             class="w-full border border-outline-variant rounded-lg p-2 focus:ring-primary focus:border-primary outline-none transition"
+             placeholder="exemple@srmfm.ma" />
+    </div>
+
+    <div>
+      <label class="text-label-md block mb-1">Mot de passe</label>
+      <input formControlName="password" type="password"
+             class="w-full border border-outline-variant rounded-lg p-2 focus:ring-primary focus:border-primary outline-none transition"
+             placeholder="Votre mot de passe" />
+    </div>
+
+    <button [disabled]="loginForm.invalid"
+            class="w-full bg-primary text-on-primary py-2 rounded-lg font-bold hover:opacity-90 transition disabled:opacity-50">
+      Se connecter
+    </button>
+
+    <p class="text-center text-label-md text-on-surface-variant">
+      Pas encore de compte ?
+      <a routerLink="/register" class="text-primary font-medium hover:underline">Créer un compte</a>
+    </p>
+
+    <p class="text-center text-label-md">
+      <a routerLink="/change-password" class="text-primary font-medium hover:underline">Mot de passe oublié ?</a>
+    </p>
+
+    <!-- Nouveau bouton retour -->
+    <div class="text-center pt-2">
+      <a routerLink="/" class="text-on-surface-variant hover:text-primary font-medium text-label-md transition flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-lg">arrow_back</span>
+        Retour à l'accueil
+      </a>
+    </div>
+  </form>
+</div>

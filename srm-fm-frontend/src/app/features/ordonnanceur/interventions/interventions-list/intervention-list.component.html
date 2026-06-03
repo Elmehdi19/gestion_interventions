@@ -1,0 +1,36 @@
+<div class="p-6">
+  <h2 class="text-2xl font-bold mb-6 text-primary">Mes interventions créées</h2>
+  <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-outline-variant">
+    <table class="min-w-full">
+      <thead class="bg-surface-container-low">
+        <tr>
+          <th class="px-4 py-3 text-left">N° intervention</th>
+          <th class="px-4 py-3 text-left">Statut</th>
+          <th class="px-4 py-3 text-left">Date création</th>
+          <th class="px-4 py-3 text-left">Urgence</th>
+          <th class="px-4 py-3 text-left">Chef d’équipe</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant">
+        <tr *ngFor="let intervention of interventions" class="hover:bg-surface-container-low transition">
+          <td class="px-4 py-3">{{ intervention.numero }}</td>
+          <td class="px-4 py-3">
+            <span [ngClass]="{
+              'text-yellow-600': intervention.statut === 'EN_ATTENTE',
+              'text-blue-600': intervention.statut === 'PRIS_EN_CHARGE',
+              'text-green-600': intervention.statut === 'CLOTURE'
+            }" class="font-medium">
+              {{ getStatutLabel(intervention.statut) }}
+            </span>
+          </td>
+          <td class="px-4 py-3">{{ intervention.dateCreation | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td class="px-4 py-3">
+            <span *ngIf="intervention.urgente" class="bg-error text-on-error px-2 py-1 rounded-full">Urgente</span>
+            <span *ngIf="!intervention.urgente" class="text-on-surface-variant">-</span>
+          </td>
+          <td class="px-4 py-3">{{ intervention.chefEquipeNom || '-' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

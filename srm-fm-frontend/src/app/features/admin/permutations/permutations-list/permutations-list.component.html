@@ -1,0 +1,41 @@
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+  <h3 class="font-title-lg text-title-lg font-bold mb-6">Permutations d'agents</h3>
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead class="bg-surface-container text-on-surface-variant">
+        <tr>
+          <th class="px-6 py-4 font-label-md uppercase">Agent</th>
+          <th class="px-6 py-4 font-label-md uppercase">Équipe source</th>
+          <th class="px-6 py-4 font-label-md uppercase">Équipe cible</th>
+          <th class="px-6 py-4 font-label-md uppercase">Type</th>
+          <th class="px-6 py-4 font-label-md uppercase">Statut</th>
+          <th class="px-6 py-4 font-label-md uppercase text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant">
+        <tr *ngFor="let p of permutations" class="hover:bg-surface-container-low transition-colors">
+          <td class="px-6 py-4 font-bold">{{ p.technicienNom }}</td>
+    
+          <td class="px-6 py-4 text-label-md">{{ p.equipeDestinationNom }}</td>
+          <td class="px-6 py-4">{{ p.typePermutation }}</td>
+          <td class="px-6 py-4">
+            <span class="px-2 py-1 rounded-md text-label-md font-bold"
+                  [class.bg-green-100.text-green-800]="p.statut === 'VALIDEE'"
+                  [class.bg-yellow-100.text-yellow-800]="p.statut === 'EN_ATTENTE'">
+              {{ p.statut }}
+            </span>
+          </td>
+          <td class="px-6 py-4 text-right">
+            <button *ngIf="p.statut === 'EN_ATTENTE'" (click)="valider(p.id)" class="px-3 py-1 bg-primary text-on-primary rounded-lg font-bold hover:opacity-90">
+              Valider
+            </button>
+            <span *ngIf="p.statut !== 'EN_ATTENTE'" class="text-on-surface-variant text-label-md">-</span>
+          </td>
+        </tr>
+        <tr *ngIf="permutations.length === 0">
+          <td colspan="6" class="px-6 py-4 text-center text-on-surface-variant">Aucune permutation enregistrée.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

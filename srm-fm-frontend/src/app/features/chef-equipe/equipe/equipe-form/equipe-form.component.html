@@ -1,0 +1,37 @@
+<div class="max-w-2xl mx-auto p-6">
+  <h2 class="text-2xl font-bold text-primary mb-6">{{ isEditMode ? 'Modifier' : 'Ajouter' }} une équipe</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div>
+      <label class="text-label-md">Nom *</label>
+      <input formControlName="nom" class="w-full border p-2 rounded" />
+      <div *ngIf="form.get('nom')?.invalid && form.get('nom')?.touched" class="text-error text-sm">Le nom est obligatoire</div>
+    </div>
+    <div>
+      <label class="text-label-md">Créneau horaire * (ex: 08:00-12:00)</label>
+      <input formControlName="creneauHoraire" placeholder="HH:MM-HH:MM" class="w-full border p-2 rounded" />
+      <div *ngIf="form.get('creneauHoraire')?.invalid && form.get('creneauHoraire')?.touched" class="text-error text-sm">
+        Format attendu: HH:MM-HH:MM (ex: 08:00-12:00)
+      </div>
+    </div>
+    <div>
+      <label class="text-label-md">Chef d'équipe</label>
+      <select formControlName="chefId" class="w-full border p-2 rounded">
+        <option [ngValue]="null">-- Aucun --</option>
+        <option *ngFor="let chef of chefs" [ngValue]="chef.id">{{ chef.prenom }} {{ chef.nom }}</option>
+      </select>
+    </div>
+    <div>
+      <label class="text-label-md">Spécialité *</label>
+      <select formControlName="specialite" class="w-full border p-2 rounded">
+        <option value="">-- Choisir --</option>
+        <option value="ELECTRICITE">Électricité</option>
+        <option value="EAU_ASSAINISSEMENT">Eau & Assainissement</option>
+      </select>
+      <div *ngIf="form.get('specialite')?.invalid && form.get('specialite')?.touched" class="text-error text-sm">La spécialité est obligatoire</div>
+    </div>
+    <div class="flex justify-end gap-2">
+      <button type="button" routerLink="/chef-equipe/equipes" class="btn-secondary">Annuler</button>
+      <button type="submit" [disabled]="form.invalid" class="btn-primary">Enregistrer</button>
+    </div>
+  </form>
+</div>

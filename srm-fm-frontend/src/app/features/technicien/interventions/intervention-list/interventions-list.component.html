@@ -1,0 +1,195 @@
+<div class="space-y-8">
+  <!-- =============================== -->
+  <!-- SECTION INTERVENTIONS ACTIVES   -->
+  <!-- =============================== -->
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+    <div class="flex items-center gap-2 border-b pb-2 mb-6">
+      <span class="material-symbols-outlined text-primary text-2xl">play_circle</span>
+      <h3 class="font-title-lg text-title-lg font-bold text-primary">Interventions à traiter</h3>
+    </div>
+
+    <!-- Filtres actifs -->
+    <div class="flex flex-wrap gap-4 mb-4 p-3 bg-surface-container rounded-lg">
+      <div>
+        <label class="text-label-md">Date début</label>
+        <input type="date" [(ngModel)]="activeFilters.dateDebut" (change)="onActiveFilterChange()" class="border p-2 rounded" />
+      </div>
+      <div>
+        <label class="text-label-md">Date fin</label>
+        <input type="date" [(ngModel)]="activeFilters.dateFin" (change)="onActiveFilterChange()" class="border p-2 rounded" />
+      </div>
+      <div>
+        <label class="text-label-md">Statut</label>
+        <select [(ngModel)]="activeFilters.statut" (change)="onActiveFilterChange()" class="border p-2 rounded">
+          <option value="">Tous</option>
+          <option value="PRIS_EN_CHARGE">À démarrer</option>
+          <option value="EN_COURS">En cours</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Tableau actif -->
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead class="bg-surface-container text-on-surface-variant">
+          <tr>
+            <th class="px-6 py-4">N°</th>
+            <th class="px-6 py-4">Statut</th>
+            <th class="px-6 py-4">Réclamation</th>
+            <th class="px-6 py-4">Date création</th>
+            <th class="px-6 py-4 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-outline-variant">
+          <tr *ngFor="let intervention of interventionsActives">
+            <td class="px-6 py-4 font-bold">{{ intervention.numero }}</td>
+            <td class="px-6 py-4">
+              <span [class.bg-yellow-100]="intervention.statut === 'PRIS_EN_CHARGE'"
+                    [class.bg-blue-100]="intervention.statut === 'EN_COURS'"
+                    class="px-2 py-1 rounded-md">
+                {{ getStatutLabel(intervention.statut) }}
+              </span>
+            </td>
+            <td class="px-6 py-4">{{ intervention.reclamationNumero || intervention.reclamationId }}</td>
+            <td class="px-6 py-4">{{ intervention.dateCreation | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td class="px-6 py-4 text-right">
+              <button *ngIf="intervention.statut === 'PRIS_EN_CHARGE'"
+                      (click)="demarrer(intervention.id)"
+                      class="px-3 py-1 bg-primary text-on-primary rounded-lg text-sm">Démarrer</button>
+              <button *ngIf="intervention.statut === 'EN_COURS'"
+                      (click)="afficherCloture(intervention.id)"
+                      class="px-3 py-1 bg-primary text-on-primary rounded-lg text-sm">Clôturer</button>
+              <button *ngIf="intervention.statut === 'EN_COURS' || intervention.statut === 'PRIS_EN_CHARGE'"
+                      (click)="afficherEmpechement(intervention.id)"
+                      class="px-3 py-1 bg-error-container text-on-error-container rounded-lg text-sm">Empêcher</button>
+            </td>
+          </tr>
+          <tr *ngIf="interventionsActives.length === 0">
+            <td colspan="5" class="text-center py-4">Aucune intervention active.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination active -->
+    <div *ngIf="activeTotalPages > 1" class="flex justify-center gap-2 mt-4">
+      <button (click)="activePagePrecedente()" [disabled]="activePage === 1" class="px-3 py-1 border rounded">Précédent</button>
+      <span>Page {{ activePage }} / {{ activeTotalPages }}</span>
+      <button (click)="activePageSuivante()" [disabled]="activePage === activeTotalPages" class="px-3 py-1 border rounded">Suivant</button>
+    </div>
+  </div>
+
+  <!-- =============================== -->
+  <!-- SÉPARATEUR VISUEL               -->
+  <!-- =============================== -->
+  <div class="border-t-2 border-outline-variant my-2"></div>
+
+  <!-- =============================== -->
+  <!-- SECTION HISTORIQUE              -->
+  <!-- =============================== -->
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+    <div class="flex items-center gap-2 border-b pb-2 mb-6">
+      <span class="material-symbols-outlined text-secondary text-2xl">history</span>
+      <h3 class="font-title-lg text-title-lg font-bold text-secondary">Historique des interventions</h3>
+    </div>
+
+    <!-- Filtres historique -->
+    <div class="flex flex-wrap gap-4 mb-4 p-3 bg-surface-container rounded-lg">
+      <div>
+        <label class="text-label-md">Date début</label>
+        <input type="date" [(ngModel)]="histoFilters.dateDebut" (change)="onHistoFilterChange()" class="border p-2 rounded" />
+      </div>
+      <div>
+        <label class="text-label-md">Date fin</label>
+        <input type="date" [(ngModel)]="histoFilters.dateFin" (change)="onHistoFilterChange()" class="border p-2 rounded" />
+      </div>
+      <div>
+        <label class="text-label-md">Statut</label>
+        <select [(ngModel)]="histoFilters.statut" (change)="onHistoFilterChange()" class="border p-2 rounded">
+          <option value="">Tous</option>
+          <option value="CLOTURE">Clôturée</option>
+          <option value="EMPECHE">Empêchée</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Tableau historique -->
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead class="bg-surface-container text-on-surface-variant">
+          <tr>
+            <th class="px-6 py-4">N°</th>
+            <th class="px-6 py-4">Statut</th>
+            <th class="px-6 py-4">Réclamation</th>
+            <th class="px-6 py-4">Date création</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-outline-variant">
+          <tr *ngFor="let intervention of interventionsHistorique">
+            <td class="px-6 py-4 font-bold">{{ intervention.numero }}</td>
+            <td class="px-6 py-4">
+              <span [class.bg-green-100]="intervention.statut === 'CLOTURE'"
+                    [class.bg-red-100]="intervention.statut === 'EMPECHE'"
+                    class="px-2 py-1 rounded-md">
+                {{ getStatutLabel(intervention.statut) }}
+              </span>
+            </td>
+            <td class="px-6 py-4">{{ intervention.reclamationNumero || intervention.reclamationId }}</td>
+            <td class="px-6 py-4">{{ intervention.dateCreation | date:'dd/MM/yyyy HH:mm' }}</td>
+          </tr>
+          <tr *ngIf="interventionsHistorique.length === 0">
+            <td colspan="4" class="text-center py-4">Aucun historique.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Pagination historique -->
+    <div *ngIf="histoTotalPages > 1" class="flex justify-center gap-2 mt-4">
+      <button (click)="histoPagePrecedente()" [disabled]="histoPage === 1" class="px-3 py-1 border rounded">Précédent</button>
+      <span>Page {{ histoPage }} / {{ histoTotalPages }}</span>
+      <button (click)="histoPageSuivante()" [disabled]="histoPage === histoTotalPages" class="px-3 py-1 border rounded">Suivant</button>
+    </div>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- FORMULAIRES MODAUX              -->
+<!-- =============================== -->
+
+<!-- Formulaire de clôture -->
+<div *ngIf="selectedInterventionId && clotureForm" class="mt-6 p-4 bg-surface-container rounded-lg shadow-lg">
+  <h4 class="font-bold mb-4">Clôturer l'intervention n°{{ selectedInterventionId }}</h4>
+  <form [formGroup]="clotureForm" (ngSubmit)="cloturer()" class="space-y-4">
+    <div>
+      <label class="text-label-md">Rapport *</label>
+      <textarea formControlName="rapport" rows="3" class="w-full border p-2 rounded"></textarea>
+    </div>
+    <div>
+      <label class="text-label-md">Durée effective (minutes) *</label>
+      <input type="number" formControlName="dureeEffectiveMinutes" class="w-full border p-2 rounded" />
+    </div>
+    <div>
+      <label class="text-label-md">Matériaux utilisés</label>
+      <input formControlName="materiauxUtilises" class="w-full border p-2 rounded" />
+    </div>
+    <div class="flex justify-end gap-2">
+      <button type="button" (click)="selectedInterventionId = null" class="px-4 py-2 border rounded">Annuler</button>
+      <button type="submit" [disabled]="clotureForm.invalid" class="px-4 py-2 bg-primary text-on-primary rounded">Clôturer</button>
+    </div>
+  </form>
+</div>
+
+<!-- Formulaire d'empêchement -->
+<div *ngIf="selectedInterventionId && empechementForm" class="mt-6 p-4 bg-surface-container rounded-lg shadow-lg">
+  <h4 class="font-bold mb-4">Signaler un empêchement</h4>
+  <form [formGroup]="empechementForm" (ngSubmit)="empecher()" class="space-y-4">
+    <div>
+      <label class="text-label-md">Motif *</label>
+      <textarea formControlName="motif" rows="3" class="w-full border p-2 rounded"></textarea>
+    </div>
+    <div class="flex justify-end gap-2">
+      <button type="button" (click)="selectedInterventionId = null" class="px-4 py-2 border rounded">Annuler</button>
+      <button type="submit" [disabled]="empechementForm.invalid" class="px-4 py-2 bg-primary text-on-primary rounded">Signaler</button>
+    </div>
+  </form>
+</div>

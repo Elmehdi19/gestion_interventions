@@ -1,0 +1,37 @@
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+  <h3 class="font-title-lg text-title-lg font-bold mb-6">Mes factures</h3>
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead class="bg-surface-container text-on-surface-variant">
+        <tr>
+          <th class="px-6 py-4 font-label-md uppercase">N° facture</th>
+          <th class="px-6 py-4 font-label-md uppercase">Montant TTC</th>
+          <th class="px-6 py-4 font-label-md uppercase">Émission</th>
+          <th class="px-6 py-4 font-label-md uppercase">Échéance</th>
+          <th class="px-6 py-4 font-label-md uppercase">Statut</th>
+          <th class="px-6 py-4 font-label-md uppercase text-right">PDF</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant">
+        <tr *ngFor="let f of factures" class="hover:bg-surface-container-low">
+          <td class="px-6 py-4 font-bold">{{ f.numeroFacture }}</td>
+          <td class="px-6 py-4">{{ f.montantTTC | number:'1.2-2' }} €</td>
+          <td class="px-6 py-4">{{ f.dateEmission }}</td>
+          <td class="px-6 py-4">{{ f.dateEcheance }}</td>
+          <td class="px-6 py-4">
+            <span [class.text-green-700]="f.statut === 'PAYEE'"
+                  [class.text-red-700]="f.statut === 'IMPAYEE'">
+              {{ f.statut }}
+            </span>
+          </td>
+          <td class="px-6 py-4 text-right">
+            <a *ngIf="f.pdfUrl" [href]="f.pdfUrl" target="_blank" class="text-primary underline">Télécharger</a>
+          </td>
+        </tr>
+        <tr *ngIf="factures.length === 0">
+          <td colspan="6" class="px-6 py-4 text-center text-on-surface-variant">Aucune facture disponible.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

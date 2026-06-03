@@ -1,0 +1,26 @@
+<div class="card">
+  <h2 class="text-title-lg font-bold mb-4">Interventions</h2>
+  <div class="table-container">
+    <table class="w-full">
+      <thead class="table-header">
+        <tr>
+          <th>N°</th>
+          <th>Statut</th>
+          <th>Date création</th>
+          <th>Réclamation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let inter of interventions" class="table-row">
+          <td class="table-body font-bold">{{ inter.numero }}</td>
+          <td class="table-body">{{ inter.statut }}</td>
+          <td class="table-body">{{ inter.dateCreation | date:'short' }}</td>
+          <td class="table-body">{{ inter.reclamationId }}</td>
+        </tr>
+        <tr *ngIf="interventions.length === 0">
+          <td colspan="4" class="text-center p-4 text-on-surface-variant">Aucune intervention trouvée.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

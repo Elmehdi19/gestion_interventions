@@ -1,0 +1,20 @@
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+  <h3 class="font-title-lg text-title-lg font-bold mb-6">Équipes et techniciens</h3>
+
+  <div *ngFor="let groupe of techniciensParEquipe" class="mb-6">
+    <h4 class="text-title-md font-semibold mb-3 text-primary">{{ groupe.equipeNom }}</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div *ngFor="let tech of groupe.techniciens" class="p-4 bg-surface-container rounded-lg flex items-center gap-4">
+        <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">
+          {{ tech.prenom[0] }}{{ tech.nom[0] }}
+        </div>
+        <div>
+          <p class="font-bold">{{ tech.prenom }} {{ tech.nom }}</p>
+          <p class="text-label-md text-on-surface-variant">ID: {{ tech.id }}</p>
+          <p class="text-label-md text-on-surface-variant">Email: {{ tech.email }}</p>
+          <p class="text-label-md text-on-surface-variant">Interventions en cours: {{ tech.interventionsEnCours }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

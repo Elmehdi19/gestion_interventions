@@ -1,0 +1,48 @@
+<div class="max-w-2xl mx-auto p-6">
+  <h2 class="text-2xl font-bold text-primary mb-6">Demander une permutation</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div>
+      <label class="text-label-md">Technicien</label>
+      <select formControlName="technicienId" class="w-full border p-2 rounded">
+        <option [ngValue]="null">-- Choisir --</option>
+        <option *ngFor="let tech of techniciens" [ngValue]="tech.id">{{ tech.prenom }} {{ tech.nom }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="text-label-md">Équipe destination</label>
+      <select formControlName="equipeDestinationId" class="w-full border p-2 rounded">
+        <option [ngValue]="null">-- Choisir --</option>
+        <option *ngFor="let eq of equipes" [ngValue]="eq.id">{{ eq.nom }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="text-label-md">Date début</label>
+      <input type="date" formControlName="dateDebut" class="w-full border p-2 rounded" />
+    </div>
+
+    <div>
+      <label class="text-label-md">Date fin</label>
+      <input type="date" formControlName="dateFin" class="w-full border p-2 rounded" />
+    </div>
+
+    <div>
+      <label class="text-label-md">Type de permutation</label>
+      <select formControlName="typePermutation" class="w-full border p-2 rounded">
+        <option value="IMMEDIATE">Immédiate</option>
+        <option value="PROGRAMMEE">Programmée</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="text-label-md">Motif</label>
+      <textarea formControlName="motif" rows="3" class="w-full border p-2 rounded"></textarea>
+    </div>
+
+    <div class="flex justify-end gap-3">
+      <button type="button" routerLink="/chef-equipe/permutations" class="btn-secondary">Annuler</button>
+      <button type="submit" [disabled]="form.invalid" class="btn-primary">Envoyer la demande</button>
+    </div>
+  </form>
+</div>

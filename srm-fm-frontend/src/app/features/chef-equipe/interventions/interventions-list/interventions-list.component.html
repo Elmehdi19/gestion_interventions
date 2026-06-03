@@ -1,0 +1,36 @@
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+  <h3 class="font-title-lg text-title-lg font-bold mb-6">Interventions en attente</h3>
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead class="bg-surface-container text-on-surface-variant">
+        <tr>
+          <th class="px-6 py-4">N° Intervention</th>
+          <th class="px-6 py-4">Réclamation</th>
+          <th class="px-6 py-4">Type</th>
+          <th class="px-6 py-4">Date création</th>
+          <th class="px-6 py-4 text-right">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let intervention of interventions" class="hover:bg-surface-container-low">
+          <td class="px-6 py-4">{{ intervention.numero }}</td>
+          <td class="px-6 py-4">{{ intervention.reclamationNumero }}</td>
+          <td class="px-6 py-4">{{ intervention.typeLibelle }}</td>
+          <td class="px-6 py-4">{{ intervention.dateCreation | date:'short' }}</td>
+          <td class="px-6 py-4 text-right">
+            <button (click)="openModal(intervention)" class="btn-primary">Affecter</button>
+          </td>
+        </tr>
+        <tr *ngIf="interventions.length === 0"><td colspan="5" class="text-center">Aucune intervention en attente</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div *ngIf="totalPages > 1" class="flex justify-center gap-2 mt-4">
+    <button (click)="pagePrecedente()" [disabled]="currentPage === 0" class="btn-secondary">Précédent</button>
+    <span>Page {{ currentPage+1 }} / {{ totalPages }}</span>
+    <button (click)="pageSuivante()" [disabled]="currentPage+1 >= totalPages" class="btn-secondary">Suivant</button>
+  </div>
+</div>

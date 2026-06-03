@@ -1,0 +1,46 @@
+<div class="p-6">
+  <h2 class="text-2xl font-bold text-primary mb-6">Performances des équipes</h2>
+
+  <div class="grid grid-cols-1 gap-6">
+    <div *ngFor="let perf of performances" class="bg-white border rounded-xl p-5 shadow-sm hover:shadow-md transition">
+      <div class="flex justify-between items-start mb-4">
+        <div>
+          <h3 class="text-xl font-bold">{{ perf.nomEquipe }}</h3>
+          <p class="text-sm text-gray-500">Chef : {{ perf.chefNom || '—' }}</p>
+          <p class="text-sm text-gray-500">Techniciens : {{ perf.nbTechniciens }}</p>
+        </div>
+        <div class="text-right">
+          <p class="text-sm font-semibold">Interventions totales : {{ perf.nbInterventionsTotal }}</p>
+          <p class="text-sm">Clôturées : {{ perf.nbCloturees }}</p>
+          <p class="text-sm">En cours : {{ perf.nbEnCours }}</p>
+          <p class="text-sm">Durée moyenne : {{ perf.dureeMoyenneEquipe | number:'1.0-0' }} min</p>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <h4 class="font-semibold mb-2">Détail par technicien</h4>
+        <table class="min-w-full text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-3 py-2 text-left">Technicien</th>
+              <th class="px-3 py-2 text-center">Interventions</th>
+              <th class="px-3 py-2 text-center">Clôturées</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tech of perf.techniciens" class="border-t">
+              <td class="px-3 py-2">{{ tech.prenom }} {{ tech.nom }}</td>
+              <td class="px-3 py-2 text-center">{{ tech.nbInterventions }}</td>
+              <td class="px-3 py-2 text-center">{{ tech.nbCloturees }}</td>
+            </tr>
+            <tr *ngIf="perf.techniciens.length === 0"><td colspan="3" class="text-center py-2">Aucun technicien</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="performances.length === 0" class="text-center py-8 text-gray-500">
+      Aucune donnée de performance disponible.
+    </div>
+  </div>
+</div>

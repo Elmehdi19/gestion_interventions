@@ -1,0 +1,61 @@
+<div class="space-y-8">
+  <div class="flex justify-between items-center">
+    <h2 class="text-headline-md text-on-surface">Tableau de bord Ordonnanceur</h2>
+    <div class="flex gap-2">
+      <a routerLink="/ordonnanceur/claims" class="btn-primary text-sm px-4 py-2">Voir les réclamations</a>
+      <a routerLink="/ordonnanceur/claims/qualify" class="btn-secondary text-sm px-4 py-2">Nouvelle intervention</a>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Carte réclamations à qualifier -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition">
+      <div class="flex items-center justify-between mb-2">
+        <span class="material-symbols-outlined text-3xl text-primary">pending_actions</span>
+        <span class="text-label-md text-on-surface-variant">En attente</span>
+      </div>
+      <p class="text-display-lg font-bold text-primary">{{ nbReclamations }}</p>
+      <p class="text-body-md text-on-surface mt-1">réclamation(s) à qualifier</p>
+      <div class="mt-4">
+        <a routerLink="/ordonnanceur/claims" class="text-primary text-label-md font-medium hover:underline">Qualifier →</a>
+      </div>
+    </div>
+
+    <!-- Carte interventions créées aujourd'hui -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition">
+      <div class="flex items-center justify-between mb-2">
+        <span class="material-symbols-outlined text-3xl text-primary">today</span>
+        <span class="text-label-md text-on-surface-variant">Aujourd'hui</span>
+      </div>
+      <p class="text-display-lg font-bold text-primary">{{ nbInterventionsCreees }}</p>
+      <p class="text-body-md text-on-surface mt-1">intervention(s) créée(s)</p>
+      <div class="mt-4">
+        <a routerLink="/ordonnanceur/claims/qualify" class="text-primary text-label-md font-medium hover:underline">Créer →</a>
+      </div>
+    </div>
+
+    <!-- Carte interventions en cours -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition">
+      <div class="flex items-center justify-between mb-2">
+        <span class="material-symbols-outlined text-3xl text-primary">construction</span>
+        <span class="text-label-md text-on-surface-variant">Non clôturées</span>
+      </div>
+      <p class="text-display-lg font-bold text-primary">{{ nbInterventionsEnCours }}</p>
+      <p class="text-body-md text-on-surface mt-1">intervention(s) en cours</p>
+      <div class="mt-4">
+        <a routerLink="/ordonnanceur/interventions" class="text-primary text-label-md font-medium hover:underline">Suivre →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Graphique d’évolution -->
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+    <h3 class="text-title-md font-bold mb-4">Évolution des réclamations qualifiées</h3>
+    <div style="position: relative; height: 300px;">
+      <canvas id="evolutionChart"></canvas>
+    </div>
+    <p class="text-label-md text-on-surface-variant mt-4 text-center">
+      Nombre de réclamations qualifiées par mois (simulation)
+    </p>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm max-w-2xl mx-auto">
+  <h3 class="font-title-lg text-title-lg font-bold mb-6">{{ isEdit ? 'Modifier' : 'Créer' }} un utilisateur</h3>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="text-label-md">Nom</label>
+        <input formControlName="nom" type="text" class="w-full border border-outline-variant rounded p-2 focus:ring-primary" />
+      </div>
+      <div>
+        <label class="text-label-md">Prénom</label>
+        <input formControlName="prenom" type="text" class="w-full border border-outline-variant rounded p-2 focus:ring-primary" />
+      </div>
+    </div>
+    <div>
+      <label class="text-label-md">Email</label>
+      <input formControlName="email" type="email" class="w-full border border-outline-variant rounded p-2 focus:ring-primary" />
+    </div>
+    <div *ngIf="!isEdit">
+      <label class="text-label-md">Mot de passe</label>
+      <input formControlName="motDePasse" type="password" class="w-full border border-outline-variant rounded p-2 focus:ring-primary" />
+    </div>
+    <div>
+      <label class="text-label-md">Rôle</label>
+      <select formControlName="role" class="w-full border border-outline-variant rounded p-2 focus:ring-primary">
+        <option value="">Sélectionnez un rôle</option>
+        <option value="ADMIN">Admin</option>
+        <option value="ORDONNANCEUR_EAU_ASSAINISSEMENT">Ordonnanceur Eau/Ass.</option>
+        <option value="ORDONNANCEUR_ELECTRICITE">Ordonnanceur Élec.</option>
+        <option value="CHEF_EQUIPE">Chef d'équipe</option>
+        <option value="TECHNICIEN">Technicien</option>
+        <option value="CLIENT">Client</option>
+      </select>
+    </div>
+    <div>
+      <label class="text-label-md">Spécialité</label>
+      <select formControlName="specialite" class="w-full border border-outline-variant rounded p-2 focus:ring-primary">
+        <option value="">Aucune</option>
+        <option value="EAU">Eau</option>
+        <option value="ASSAINISSEMENT">Assainissement</option>
+        <option value="ELECTRICITE">Électricité</option>
+      </select>
+    </div>
+    <div class="flex justify-end gap-3 pt-4">
+      <button type="button" routerLink="/admin/users" class="px-4 py-2 border border-outline-variant rounded-lg hover:bg-surface-variant">Annuler</button>
+      <button type="submit" [disabled]="form.invalid" class="px-4 py-2 bg-primary text-on-primary rounded-lg font-bold disabled:opacity-50">Enregistrer</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,42 @@
+<div class="p-6 max-w-6xl mx-auto">
+  <h2 class="text-2xl font-bold text-primary mb-6">Ma consommation énergétique</h2>
+
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+    <div class="flex flex-wrap gap-4 mb-6 items-center">
+      <div class="flex items-center gap-2">
+        <label class="font-medium">Période :</label>
+        <select [(ngModel)]="periode" (change)="onPeriodeChange()" class="border border-outline-variant rounded-lg px-3 py-1 focus:ring-primary">
+          <option value="jour">Par jour</option>
+          <option value="mois">Par mois</option>
+          <option value="annee">Par année</option>
+        </select>
+      </div>
+
+      <div *ngIf="periode === 'jour'" class="flex items-center gap-2">
+        <label class="font-medium">Mois :</label>
+        <select [(ngModel)]="selectedMois" (change)="onMoisChange()" class="border border-outline-variant rounded-lg px-3 py-1">
+          <option *ngFor="let m of mois" [value]="m">{{ m }}</option>
+        </select>
+        <label class="font-medium ml-2">Année :</label>
+        <select [(ngModel)]="selectedAnnee" (change)="onAnneeChange()" class="border border-outline-variant rounded-lg px-3 py-1">
+          <option *ngFor="let a of annees" [value]="a">{{ a }}</option>
+        </select>
+      </div>
+
+      <div *ngIf="periode === 'mois'" class="flex items-center gap-2">
+        <label class="font-medium">Année :</label>
+        <select [(ngModel)]="selectedAnnee" (change)="onAnneeChange()" class="border border-outline-variant rounded-lg px-3 py-1">
+          <option *ngFor="let a of annees" [value]="a">{{ a }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="position: relative; height: 400px;">
+      <canvas id="chartConsommation"></canvas>
+    </div>
+
+    <p class="text-label-md text-on-surface-variant mt-6 text-center">
+      * Ces données sont une simulation. Une fois les relevés réels disponibles, la consommation s’affichera ici.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="flex h-screen">
+  <!-- Sidebar -->
+  <aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant flex flex-col py-md gap-2 z-50">
+    <div class="px-6 py-4 mb-4">
+      <h1 class="text-headline-md font-headline-md font-bold text-primary">SRM-FM Control</h1>
+      <p class="text-label-md text-on-surface-variant">Chef d'équipe</p>
+    </div>
+    <nav class="flex-grow space-y-1">
+      <a *ngFor="let item of menuItems"
+         [routerLink]="item.route"
+         routerLinkActive="bg-primary-container text-on-primary-container rounded-lg font-semibold"
+         [routerLinkActiveOptions]="{ exact: item.route === '/chef-equipe/dashboard' }"
+         class="text-on-surface-variant hover:text-on-surface mx-2 px-4 py-3 flex items-center gap-3 hover:bg-surface-variant transition-all active:scale-[0.98]">
+        <span class="material-symbols-outlined">{{ item.icon }}</span>
+        <span class="font-label-md text-label-md font-medium">{{ item.label }}</span>
+      </a>
+    </nav>
+    <div class="px-4 py-4 mt-auto border-t border-outline-variant">
+      <div class="space-y-1">
+        <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 flex items-center gap-3 font-label-md text-label-md" href="#">
+          <span class="material-symbols-outlined">help</span>
+          Help Center
+        </a>
+        <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 flex items-center gap-3 font-label-md text-label-md" href="#">
+          <span class="material-symbols-outlined">logout</span>
+          Logout
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col ml-64">
+    <!-- Top bar simplifiée -->
+    <header class="flex justify-between items-center h-16 px-gutter w-full bg-surface border-b border-outline-variant sticky top-0 z-40 shadow-sm">
+      <div class="flex items-center gap-4">
+        <h2 class="text-title-lg font-title-lg font-bold text-primary tracking-tight">SRM-FM</h2>
+        <div class="h-6 w-px bg-outline-variant"></div>
+        <span class="text-body-md font-medium text-on-surface-variant">Chef d'équipe</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <button class="p-2 rounded-full hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined text-primary">notifications</span></button>
+        <img class="w-10 h-10 rounded-full border-2 border-primary-fixed cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6-XVbFz1Wem3w7UTddOGgMUL7EBgacmWSncS1o4papKlBQKjcByuA3HTZXLV05xwOd8qMM3acowd8dcHdLXwBb8escJVzKLcz_V4mhSHwZgE66Ckr6LEW8BhzdGBbwrdZi9miIT5_nN1sgzuqRf1_Fj8dbfTRLaH1jErPpvuua0v8HvRrrkm0mNnJI1r6p5WXJAULuab_KQDn5ska613XDt1EiK2BQpRn4DUeGd6byew3oHmmUc-sjWvRO_cfC97RbIg6RDgI3aVm" alt="Avatar"/>
+      </div>
+    </header>
+    <main class="flex-1 overflow-y-auto bg-surface p-gutter">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

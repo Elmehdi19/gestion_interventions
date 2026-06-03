@@ -1,0 +1,54 @@
+<div class="p-6">
+  <h1 class="text-2xl font-bold mb-6 text-primary">Réclamations qualifiées sans intervention</h1>
+
+  <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-outline-variant">
+    <table class="min-w-full">
+      <thead class="bg-surface-container-low">
+        <tr>
+          <th class="px-4 py-3 text-left text-label-md font-semibold text-on-surface">N° réclamation</th>
+          <th class="px-4 py-3 text-left text-label-md font-semibold text-on-surface">Description</th>
+          <th class="px-4 py-3 text-left text-label-md font-semibold text-on-surface">Date création</th>
+          <th class="px-4 py-3 text-center text-label-md font-semibold text-on-surface">Urgente</th>
+          <th class="px-4 py-3 text-center text-label-md font-semibold text-on-surface">Action</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant">
+        <tr *ngFor="let reclamation of paginatedReclamations" class="hover:bg-surface-container-low transition">
+          <td class="px-4 py-3 text-body-md">{{ reclamation.numero }}</td>
+          <td class="px-4 py-3 text-body-md">{{ reclamation.description | slice:0:80 }}{{ reclamation.description.length > 80 ? '...' : '' }}</td>
+          <td class="px-4 py-3 text-body-md">{{ reclamation.dateCreation | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td class="px-4 py-3 text-center">
+            <span *ngIf="reclamation.urgente" class="bg-error text-on-error px-2 py-1 rounded-full text-label-md">
+              Urgente
+            </span>
+            <span *ngIf="!reclamation.urgente" class="text-on-surface-variant">-</span>
+          </td>
+          <td class="px-4 py-3 text-center">
+            <button (click)="creerIntervention(reclamation.id)"
+                    class="bg-primary text-on-primary px-4 py-2 rounded-lg text-label-md font-medium hover:opacity-90 transition">
+              Créer intervention
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="paginatedReclamations.length === 0">
+          <td colspan="5" class="text-center py-8 text-on-surface-variant">
+            Aucune réclamation qualifiée en attente d’intervention
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div *ngIf="totalPages > 1" class="flex justify-center gap-2 mt-6">
+    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"
+            class="px-3 py-1 rounded border bg-white hover:bg-surface-container-low disabled:opacity-50">
+      Précédent
+    </button>
+    <span class="px-3 py-1 text-body-md">Page {{ currentPage }} / {{ totalPages }}</span>
+    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages"
+            class="px-3 py-1 rounded border bg-white hover:bg-surface-container-low disabled:opacity-50">
+      Suivant
+    </button>
+  </div>
+</div>

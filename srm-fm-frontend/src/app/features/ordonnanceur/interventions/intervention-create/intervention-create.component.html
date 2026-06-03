@@ -1,0 +1,47 @@
+<div class="p-6 max-w-lg mx-auto">
+  <h2 class="text-2xl font-bold mb-6 text-primary">Créer une intervention</h2>
+  <form [formGroup]="form" (ngSubmit)="creerIntervention()" class="space-y-4">
+
+    <!-- Famille -->
+    <div>
+      <label class="block text-label-md font-medium mb-1">Famille d'intervention</label>
+      <select formControlName="familleId" (change)="onFamilleChange()" class="input-field w-full">
+        <option [ngValue]="null">-- Choisir une famille --</option>
+        <option *ngFor="let f of famillesFiltrees" [ngValue]="f.id">{{ f.libelle }}</option>
+      </select>
+    </div>
+
+    <!-- Type d'intervention -->
+    <div>
+      <label class="block text-label-md font-medium mb-1">Type d'intervention</label>
+      <select formControlName="typeInterventionId" class="input-field w-full">
+        <option [ngValue]="null">-- Choisir un type --</option>
+        <option *ngFor="let t of typesDisponibles" [ngValue]="t.id">
+          {{ t.libelle }} ({{ t.dureeEstimeeMinutes }} min)
+        </option>
+      </select>
+    </div>
+
+    <!-- Chef d'équipe -->
+    <div>
+      <label class="block text-label-md font-medium mb-1">Chef d'équipe</label>
+      <select formControlName="chefEquipeId" class="input-field w-full">
+        <option [ngValue]="null">-- Choisir un chef d'équipe --</option>
+        <option *ngFor="let chef of chefs" [ngValue]="chef.id">
+          {{ chef.prenom }} {{ chef.nom }} ({{ chef.email }})
+        </option>
+      </select>
+    </div>
+
+    <!-- Urgente -->
+    <label class="flex items-center gap-3">
+      <input type="checkbox" formControlName="urgente" class="rounded" />
+      <span class="text-body-md">Intervention urgente</span>
+    </label>
+
+    <div class="flex justify-end gap-3 pt-4">
+      <button type="submit" [disabled]="form.invalid" class="btn-primary">Créer</button>
+      <button type="button" (click)="annuler()" class="btn-secondary">Annuler</button>
+    </div>
+  </form>
+</div>

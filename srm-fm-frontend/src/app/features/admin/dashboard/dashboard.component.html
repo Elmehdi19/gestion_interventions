@@ -1,0 +1,78 @@
+<div class="space-y-6">
+  <!-- KPIs rapides -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm text-center">
+      <p class="text-label-md text-on-surface-variant">Total réclamations</p>
+      <p class="text-headline-lg font-bold text-primary">{{ totalReclamations }}</p>
+    </div>
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm text-center">
+      <p class="text-label-md text-on-surface-variant">Réclamations ouvertes</p>
+      <p class="text-headline-lg font-bold text-primary">{{ reclamationsOuvertes }}</p>
+    </div>
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm text-center">
+      <p class="text-label-md text-on-surface-variant">Interventions en cours</p>
+      <p class="text-headline-lg font-bold text-tertiary">{{ interventionsEnCours }}</p>
+    </div>
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm text-center">
+      <p class="text-label-md text-on-surface-variant">Interventions clôturées</p>
+      <p class="text-headline-lg font-bold text-secondary">{{ interventionsCloturees }}</p>
+    </div>
+  </div>
+
+  <!-- Graphiques -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Doughnut -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm flex flex-col">
+      <h3 class="text-title-lg font-bold mb-4">Répartition par spécialité</h3>
+      <div class="flex-1" style="max-height: 280px;">
+        <canvas baseChart
+                [data]="doughnutChartData"
+                [options]="doughnutChartOptions"
+                type="doughnut">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- Bar chart -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm flex flex-col">
+      <h3 class="text-title-lg font-bold mb-4">Évolution mensuelle</h3>
+      <div class="flex-1" style="max-height: 280px;">
+        <canvas baseChart
+                [data]="barChartData"
+                [options]="barChartOptions"
+                type="bar">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table des utilisateurs -->
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+    <div class="p-6 border-b border-outline-variant flex justify-between items-center">
+      <h3 class="text-title-lg font-bold">Utilisateurs récents</h3>
+      <button class="px-4 py-2 bg-primary text-on-primary rounded-lg font-bold">Voir tout</button>
+    </div>
+    <table class="w-full text-left">
+      <thead class="bg-surface-container text-on-surface-variant">
+        <tr>
+          <th class="px-6 py-4 font-label-md uppercase">Nom</th>
+          <th class="px-6 py-4 font-label-md uppercase">Rôle</th>
+          <th class="px-6 py-4 font-label-md uppercase">Spécialité / Contrat</th>
+          <th class="px-6 py-4 font-label-md uppercase text-center">Statut</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant">
+       <tr *ngFor="let user of users" class="table-row">
+  <td class="table-body font-bold">{{ user.nom }}</td>
+      <td class="table-body">{{ user.role }}</td>
+      <td class="table-body">{{ user.specialite }}</td>
+      <td class="table-body text-center">
+        <span class="badge" [class.badge-success]="user.actif" [class.badge-error]="!user.actif">
+          {{ user.actif }}
+        </span>
+      </td>
+    </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

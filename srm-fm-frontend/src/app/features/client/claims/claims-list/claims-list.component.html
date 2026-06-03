@@ -1,0 +1,32 @@
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+  <h3 class="font-title-lg text-title-lg font-bold mb-6">Mes réclamations</h3>
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead class="bg-surface-container text-on-surface-variant">
+        <tr>
+          <th class="px-6 py-4 font-label-md uppercase">N°</th>
+          <th class="px-6 py-4 font-label-md uppercase">Description</th>
+          <th class="px-6 py-4 font-label-md uppercase">Statut</th>
+          <th class="px-6 py-4 font-label-md uppercase">Date</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant">
+        <tr *ngFor="let rec of reclamations" class="hover:bg-surface-container-low">
+          <td class="px-6 py-4 font-bold">{{ rec.numero }}</td>
+          <td class="px-6 py-4 max-w-xs truncate">{{ rec.description }}</td>
+          <td class="px-6 py-4">
+            <span class="px-2 py-1 rounded-md text-label-md font-bold"
+                  [class.bg-green-100.text-green-800]="rec.statut === 'CLOTUREE'"
+                  [class.bg-yellow-100.text-yellow-800]="rec.statut !== 'CLOTUREE'">
+              {{ rec.statut }}
+            </span>
+          </td>
+          <td class="px-6 py-4 text-label-md">{{ rec.dateCreation | date:'short' }}</td>
+        </tr>
+        <tr *ngIf="reclamations.length === 0">
+          <td colspan="4" class="px-6 py-4 text-center text-on-surface-variant">Aucune réclamation.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

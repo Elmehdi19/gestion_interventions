@@ -1,0 +1,253 @@
+<!-- TopNavBar -->
+<header class="flex justify-between items-center h-20 px-gutter w-full bg-surface border-b border-outline-variant fixed top-0 z-50 shadow-sm">
+  <div class="flex items-center gap-sm">
+    <span class="material-symbols-outlined text-primary text-4xl" style='font-variation-settings: "FILL" 1;'>water_drop</span>
+    <div class="flex flex-col">
+      <span class="text-title-lg font-bold text-primary leading-tight tracking-tight">SRM Fès-Meknès</span>
+      <span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-medium">Société Régionale Multiservices</span>
+    </div>
+  </div>
+  <nav class="hidden xl:flex items-center gap-lg">
+    <a class="text-primary font-semibold border-b-2 border-primary pb-1 font-label-md text-label-md cursor-pointer" (click)="navigateTo('/')">Accueil</a>
+    <a *ngIf="!isLoggedIn" class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md cursor-pointer" (click)="navigateTo('/login')">Je suis client</a>
+    <a *ngIf="isLoggedIn" class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md cursor-pointer" (click)="goToMySpace()">Mon espace</a>
+    <a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#contact">Contact</a>
+  </nav>
+  <div class="flex items-center gap-md">
+    <div class="hidden lg:flex items-center bg-surface-container rounded-full px-md py-xs border border-outline-variant">
+      <span class="material-symbols-outlined text-on-surface-variant text-lg">search</span>
+      <input class="bg-transparent border-none focus:ring-0 text-body-md w-32 xl:w-48" placeholder="Rechercher..." type="text"/>
+    </div>
+    <a *ngIf="!isLoggedIn" (click)="navigateTo('/login')" class="flex items-center px-lg py-2 rounded-lg bg-primary text-on-primary font-semibold transition-all active:scale-95 shadow-sm cursor-pointer">
+      Espace Client
+    </a>
+    <a *ngIf="isLoggedIn" (click)="goToMySpace()" class="flex items-center px-lg py-2 rounded-lg bg-primary text-on-primary font-semibold transition-all active:scale-95 shadow-sm cursor-pointer">
+      Mon espace
+    </a>
+    <div class="xl:hidden flex items-center">
+      <span class="material-symbols-outlined text-on-surface-variant cursor-pointer">menu</span>
+    </div>
+  </div>
+</header>
+
+<main class="pt-20">
+  <!-- Hero Section -->
+  <section class="relative min-h-[700px] flex items-center hero-gradient text-white">
+    <div class="container mx-auto px-gutter relative z-10 max-w-max-width">
+      <div class="max-w-3xl">
+        <div class="bg-primary/20 backdrop-blur-md border-l-4 border-primary px-md py-xs mb-lg inline-block rounded-r-lg">
+          <p class="font-label-md text-label-md tracking-widest uppercase">Établissement Public Régional</p>
+        </div>
+        <h1 class="font-display-lg text-display-lg mb-md leading-tight">SRM Fès-Meknès : Au service de votre quotidien</h1>
+        <p class="font-body-lg text-body-lg text-surface-container-lowest/90 mb-xl leading-relaxed">
+          Créée le 15 juillet 2025, la Société Régionale Multiservices Fès-Meknès a pour mission d'assurer la gestion des services publics de distribution d'eau potable, d'électricité et d'assainissement liquide sur l'ensemble de la région de Fès-Meknès. Nous nous engageons pour un développement durable et une excellence opérationnelle au profit de nos usagers.
+        </p>
+        <div class="flex flex-wrap gap-md">
+          <a *ngIf="!isLoggedIn" (click)="navigateTo('/login')" class="bg-primary text-on-primary px-xl py-md rounded-lg font-title-lg text-title-lg hover:shadow-lg transition-all active:opacity-80 flex items-center gap-sm cursor-pointer">
+            <span class="material-symbols-outlined">person_pin_circle</span>
+            Accéder à mon espace
+          </a>
+          <a *ngIf="isLoggedIn" (click)="goToMySpace()" class="bg-primary text-on-primary px-xl py-md rounded-lg font-title-lg text-title-lg hover:shadow-lg transition-all active:opacity-80 flex items-center gap-sm cursor-pointer">
+            <span class="material-symbols-outlined">dashboard</span>
+            Mon tableau de bord
+          </a>
+          <button class="backdrop-blur-sm border-2 border-white text-white px-xl py-md rounded-lg font-title-lg text-title-lg hover:bg-white hover:text-primary transition-all flex items-center gap-sm">
+            <span class="material-symbols-outlined">report_problem</span>
+            Signaler un incident
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Espaces de paiement Section -->
+  <section class="py-xl bg-surface-container-low">
+    <div class="container mx-auto px-gutter max-w-max-width">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
+        <div>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Espaces de paiement</h2>
+          <p class="text-on-surface-variant font-body-md">Accédez rapidement à vos services de paiement en ligne selon votre zone ou branche</p>
+        </div>
+        <div class="h-1 w-24 bg-primary rounded-full hidden md:block"></div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-md">
+        <div *ngFor="let card of paiementCards" class="bg-surface p-lg rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center group">
+          <div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-primary">{{ card.icon }}</span>
+          </div>
+          <h3 class="font-title-lg text-[16px] text-on-surface mb-md h-12 flex items-center">{{ card.title }}</h3>
+          <p class="text-label-md text-on-surface-variant mb-lg italic">{{ card.subtitle }}</p>
+          <a class="mt-auto w-full py-sm bg-surface-container text-primary font-semibold rounded-lg hover:bg-primary hover:text-on-primary transition-colors text-body-md cursor-pointer" (click)="navigateTo('/paiement')">Cliquez ici</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics Grid Section -->
+  <section class="py-xl bg-primary text-on-primary">
+    <div class="container mx-auto px-gutter max-width">
+      <div class="text-center mb-xl">
+        <h2 class="font-headline-lg text-headline-lg mb-xs">Chiffres Clés de la Région</h2>
+        <p class="opacity-80 font-body-md">Une infrastructure robuste pour un service de proximité</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-xl">
+        <div *ngFor="let stat of stats" class="flex flex-col items-center text-center">
+          <span class="material-symbols-outlined text-4xl mb-sm opacity-90">{{ stat.icon }}</span>
+          <p class="font-display-lg text-headline-md lg:text-headline-lg">{{ stat.value }}</p>
+          <p class="text-label-md uppercase opacity-80">{{ stat.label }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strategy/Mission Section -->
+  <section class="py-xl bg-surface-container-lowest">
+    <div class="container mx-auto px-gutter max-w-max-width">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+        <div class="relative">
+          <img alt="Strategic planning" class="rounded-2xl shadow-xl w-full object-cover h-[500px]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYOsna9_vI0M87UhVXbQZRsHMGZYneaTrlYLmvLEc80UJxaG-p6N1NZREayRL4sgctBuOadvBQZhW9OrhkWEU0O_rEIYikLY5-7IwRhT210YhhBXymXkmnCiG7oKX7EOBUplKF0ZgTbdvLjK6CmqMvUlWtGBSA5q9W110Mp3tTmEdOkgUkpZvmZNnwx-nJxVqDsP9ZX1H2BT8QHW_RAYvES10KhlRUAsr3re4oZiPsm59jBlRhyuHs1Igm8-XoMUQXTXk32NtDLC03"/>
+          <div class="absolute -bottom-6 -right-6 bg-primary p-xl rounded-2xl text-on-primary hidden md:block">
+            <p class="font-headline-md text-headline-md italic mb-xs">"Notre Vision"</p>
+            <p class="text-body-md opacity-80">Une gestion moderne pour une région prospère.</p>
+          </div>
+        </div>
+        <div>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-lg">Nos Piliers Stratégiques</h2>
+          <div class="space-y-md">
+            <div *ngFor="let pilier of piliers" class="flex gap-md p-md rounded-xl hover:bg-surface-container-low transition-colors border border-transparent hover:border-outline-variant">
+              <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-primary">{{ pilier.icon }}</span>
+              </div>
+              <div>
+                <h3 class="font-title-lg text-title-lg text-on-surface mb-xs">{{ pilier.title }}</h3>
+                <p class="text-on-surface-variant text-body-md">{{ pilier.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="py-xl bg-surface-container-low" id="contact">
+    <div class="container mx-auto px-gutter max-w-max-width">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+        <div>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-lg">Nous contacter</h2>
+          <p class="font-body-lg text-body-lg text-on-surface-variant mb-xl">
+            Les équipes de la SRM Fès-Meknès sont mobilisées 24h/24 pour assurer la continuité de service.
+          </p>
+          <div class="space-y-md">
+            <div class="flex items-start gap-md">
+              <span class="material-symbols-outlined text-primary">location_on</span>
+              <div>
+                <p class="font-title-lg text-title-lg text-on-surface">Siège Régional</p>
+                <p class="font-body-md text-body-md text-on-surface-variant">Fès, Maroc</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-md">
+              <span class="material-symbols-outlined text-primary">call</span>
+              <div>
+                <p class="font-title-lg text-title-lg text-on-surface">Centre de Relation Client</p>
+                <p class="font-body-md text-body-md text-on-surface-variant">080 000 00 00 (Numéro Vert)</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-md">
+              <span class="material-symbols-outlined text-primary">mail</span>
+              <div>
+                <p class="font-title-lg text-title-lg text-on-surface">Email</p>
+                <p class="font-body-md text-body-md text-on-surface-variant">contact&#64;srmfm.ma</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-surface rounded-xl border border-outline-variant p-lg shadow-sm">
+          <form class="space-y-md">
+            <div>
+              <label class="block font-label-md text-label-md text-on-surface mb-xs">Nom complet</label>
+              <input class="w-full bg-surface border border-outline rounded-lg px-md py-sm focus:border-primary focus:ring-3 focus:ring-primary-container/30 outline-none transition-all" placeholder="Votre nom" type="text"/>
+            </div>
+            <div>
+              <label class="block font-label-md text-label-md text-on-surface mb-xs">Adresse email</label>
+              <input class="w-full bg-surface border border-outline rounded-lg px-md py-sm focus:border-primary focus:ring-3 focus:ring-primary-container/30 outline-none transition-all" placeholder="email@exemple.ma" type="email"/>
+            </div>
+            <div>
+              <label class="block font-label-md text-label-md text-on-surface mb-xs">Objet de votre demande</label>
+              <select class="w-full bg-surface border border-outline rounded-lg px-md py-sm focus:border-primary focus:ring-3 focus:ring-primary-container/30 outline-none transition-all">
+                <option>Demande d'information</option>
+                <option>Signalement incident</option>
+                <option>Facturation</option>
+                <option>Autres</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-label-md text-label-md text-on-surface mb-xs">Message</label>
+              <textarea class="w-full bg-surface border border-outline rounded-lg px-md py-sm focus:border-primary focus:ring-3 focus:ring-primary-container/30 outline-none transition-all" placeholder="Comment pouvons-nous vous aider ?" rows="4"></textarea>
+            </div>
+            <button class="w-full bg-primary text-on-primary py-md rounded-lg font-semibold hover:opacity-90 active:scale-[0.98] transition-all" type="submit">
+              Envoyer
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-inverse-surface text-inverse-on-surface py-xl">
+  <div class="container mx-auto px-gutter max-w-max-width">
+    <div class="flex flex-col md:flex-row justify-between items-start gap-xl border-b border-on-surface-variant/20 pb-xl mb-xl">
+      <div>
+        <div class="flex items-center gap-sm mb-md">
+          <span class="material-symbols-outlined text-primary-fixed-dim text-3xl">water_drop</span>
+          <span class="text-title-lg font-bold tracking-tight text-white uppercase">SRM Fès-Meknès</span>
+        </div>
+        <p class="max-w-xs text-on-surface-variant text-body-md leading-relaxed">
+          Acteur majeur du développement régional assurant la pérennité des services essentiels pour plus de 4,5 millions d'habitants.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-xl">
+        <div>
+          <h4 class="font-label-md text-label-md text-white mb-md uppercase">Services</h4>
+          <ul class="space-y-sm text-body-md text-on-surface-variant">
+            <li><a class="hover:text-primary-fixed-dim transition-colors cursor-pointer" (click)="navigateTo('/services/eau')">Eau Potable</a></li>
+            <li><a class="hover:text-primary-fixed-dim transition-colors cursor-pointer" (click)="navigateTo('/services/electricite')">Électricité</a></li>
+            <li><a class="hover:text-primary-fixed-dim transition-colors cursor-pointer" (click)="navigateTo('/services/assainissement')">Assainissement</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-label-md text-label-md text-white mb-md uppercase">Institutionnel</h4>
+          <ul class="space-y-sm text-body-md text-on-surface-variant">
+            <li><a class="hover:text-primary-fixed-dim transition-colors cursor-pointer" (click)="navigateTo('/gouvernance')">Gouvernance</a></li>
+            <li><a class="hover:text-primary-fixed-dim transition-colors cursor-pointer" (click)="navigateTo('/appels-offres')">Appels d'offres</a></li>
+            <li><a class="hover:text-primary-fixed-dim transition-colors cursor-pointer" (click)="navigateTo('/rapports')">Rapports</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-label-md text-label-md text-white mb-md uppercase">Légal</h4>
+          <ul class="space-y-sm text-body-md text-on-surface-variant">
+            <li><a class="hover:text-primary-fixed-dim transition-colors cursor-pointer" (click)="navigateTo('/mentions-legales')">Mentions Légales</a></li>
+            <li><a class="hover:text-primary-fixed-dim transition-colors cursor-pointer" (click)="navigateTo('/confidentialite')">Confidentialité</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between items-center gap-md text-label-md text-on-surface-variant">
+      <p>© 2024 SRM Fès-Meknès. Tous droits réservés.</p>
+      <div class="flex gap-lg">
+        <span class="material-symbols-outlined cursor-pointer hover:text-white">public</span>
+        <span class="material-symbols-outlined cursor-pointer hover:text-white">hub</span>
+        <span class="material-symbols-outlined cursor-pointer hover:text-white">security</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Chatbot Widget FAB -->
+<div class="fixed bottom-lg right-lg z-50 flex flex-col items-end gap-md">
+  <button class="w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all">
+    <span class="material-symbols-outlined text-3xl">smart_toy</span>
+  </button>
+</div>

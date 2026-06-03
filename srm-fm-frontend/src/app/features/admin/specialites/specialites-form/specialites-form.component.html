@@ -1,0 +1,24 @@
+<div class="max-w-2xl mx-auto p-6">
+  <h2 class="text-2xl font-bold text-primary mb-6">{{ isEditMode ? 'Modifier' : 'Ajouter' }} une spécialité</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-5">
+    <div>
+      <label class="block text-label-md font-medium mb-1">Libellé *</label>
+      <input type="text" formControlName="libelle"
+             class="w-full border border-outline-variant rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" />
+      <div *ngIf="form.get('libelle')?.invalid && form.get('libelle')?.touched" class="text-error text-label-md mt-1">
+        Le libellé est obligatoire.
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-3 pt-4">
+      <button type="button" (click)="annuler()" class="px-4 py-2 border rounded-lg hover:bg-surface-container-low">
+      Annuler
+    </button>
+      <button type="submit" [disabled]="form.invalid"
+              class="px-4 py-2 bg-primary text-on-primary rounded-lg shadow hover:bg-primary-variant disabled:opacity-50">
+        {{ isEditMode ? 'Mettre à jour' : 'Créer' }}
+      </button>
+    </div>
+  </form>
+</div>

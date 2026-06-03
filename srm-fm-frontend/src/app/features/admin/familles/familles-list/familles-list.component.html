@@ -1,0 +1,62 @@
+<div class="p-4">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-primary">Familles d'intervention</h2>
+    <button routerLink="/admin/familles/new"
+            class="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-lg shadow-md hover:bg-primary-variant transition">
+      <span class="material-symbols-outlined">add</span>
+      Nouvelle famille
+    </button>
+  </div>
+  <div class="flex flex-wrap gap-4 mb-6">
+    <div class="flex-1 min-w-[200px]">
+      <input type="text"
+             [(ngModel)]="searchTerm"
+             (input)="filtrer()"
+             placeholder="Rechercher par nom..."
+             class="w-full border border-outline-variant rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" />
+    </div>
+    <div class="w-64">
+      <select [(ngModel)]="selectedSpecialiteId"
+              (change)="filtrer()"
+              class="w-full border border-outline-variant rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+        <option [ngValue]="null">Toutes spécialités</option>
+        <option *ngFor="let s of specialites" [ngValue]="s.id">{{ s.libelle }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-outline-variant">
+    <table class="min-w-full">
+      <thead class="bg-surface-container-low">
+        <tr>
+          <th class="px-6 py-3 text-left text-label-md font-semibold text-on-surface">Libellé</th>
+          <th class="px-6 py-3 text-left text-label-md font-semibold text-on-surface">Spécialité</th>
+          <th class="px-6 py-3 text-center text-label-md font-semibold text-on-surface">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant">
+        <tr *ngFor="let famille of famillesFiltrees" class="hover:bg-surface-container-low transition">
+          <td class="px-6 py-4 text-body-md">{{ famille.libelle }}</td>
+          <td class="px-6 py-4 text-body-md">{{ getSpecialiteLibelle(famille.specialiteId) }}</td>
+          <td class="px-6 py-4 text-center space-x-2">
+            <a [routerLink]="[famille.id, 'edit']"
+               class="inline-flex items-center justify-center p-2 text-primary hover:bg-primary-container rounded-full transition"
+               title="Modifier">
+              <span class="material-symbols-outlined">edit</span>
+            </a>
+            <button (click)="deleteFamille(famille.id)"
+                    class="inline-flex items-center justify-center p-2 text-error hover:bg-error-container rounded-full transition"
+                    title="Supprimer">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="famillesFiltrees.length === 0">
+          <td colspan="3" class="px-6 py-8 text-center text-on-surface-variant">
+            Aucune famille trouvée.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

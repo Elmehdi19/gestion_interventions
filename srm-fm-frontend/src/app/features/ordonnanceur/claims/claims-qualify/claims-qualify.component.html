@@ -1,0 +1,14 @@
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm max-w-lg mx-auto">
+  <h3 class="font-title-lg text-title-lg font-bold mb-6">Qualifier la réclamation #{{ reclamationId }}</h3>
+  <p class="text-body-md text-on-surface-variant mb-4">Confirmez le caractère urgent ou non de la réclamation.</p>
+  <form [formGroup]="form" (ngSubmit)="qualifier()" class="space-y-4">
+    <label class="flex items-center gap-3">
+      <input type="checkbox" formControlName="urgente" class="rounded" />
+      <span class="text-body-md">Réclamation urgente</span>
+    </label>
+    <div class="flex justify-end gap-3">
+      <button type="button" routerLink="/ordonnanceur/claims" class="px-4 py-2 border border-outline-variant rounded-lg">Annuler</button>
+      <button type="submit" class="px-4 py-2 bg-primary text-on-primary rounded-lg font-bold">Qualifier</button>
+    </div>
+  </form>
+</div>

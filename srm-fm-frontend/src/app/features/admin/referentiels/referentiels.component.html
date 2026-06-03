@@ -1,0 +1,35 @@
+<div class="p-4">
+  <h1 class="text-2xl font-bold mb-6 text-primary">Gestion des référentiels</h1>
+
+  <!-- Boutons d'onglets -->
+  <div class="flex border-b border-outline-variant mb-6">
+    <button (click)="setTab('specialites')"
+            [class.border-primary]="activeTab === 'specialites'"
+            class="px-4 py-2 font-medium border-b-2 transition-colors"
+            [class.text-primary]="activeTab === 'specialites'"
+            [class.text-on-surface-variant]="activeTab !== 'specialites'">
+      Spécialités
+    </button>
+    <button (click)="setTab('familles')"
+            [class.border-primary]="activeTab === 'familles'"
+            class="px-4 py-2 font-medium border-b-2 transition-colors"
+            [class.text-primary]="activeTab === 'familles'"
+            [class.text-on-surface-variant]="activeTab !== 'familles'">
+      Familles
+    </button>
+    <button (click)="setTab('types')"
+            [class.border-primary]="activeTab === 'types'"
+            class="px-4 py-2 font-medium border-b-2 transition-colors"
+            [class.text-primary]="activeTab === 'types'"
+            [class.text-on-surface-variant]="activeTab !== 'types'">
+      Types d'intervention
+    </button>
+  </div>
+
+  <!-- Contenu des onglets -->
+  <div class="tab-content">
+    <app-specialites-list *ngIf="activeTab === 'specialites'"></app-specialites-list>
+    <app-familles-list *ngIf="activeTab === 'familles'"></app-familles-list>
+    <app-types-list *ngIf="activeTab === 'types'"></app-types-list>
+  </div>
+</div>

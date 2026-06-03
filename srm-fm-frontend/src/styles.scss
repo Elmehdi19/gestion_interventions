@@ -1,0 +1,154 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$cyan-palette,
+        tertiary: mat.$orange-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================
+   BASE
+   ============================================= */
+@layer base {
+  body {
+    @apply font-body-md text-on-surface bg-background antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-on-surface;
+  }
+}
+
+/* =============================================
+   COMPOSANTS RÉUTILISABLES (classes globales)
+   ============================================= */
+@layer components {
+  /* ---------- Cartes ---------- */
+  .card {
+    @apply bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm;
+  }
+
+  /* ---------- Tableaux ---------- */
+  .table-container {
+    @apply bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm;
+  }
+
+  .table-header {
+    @apply bg-surface-container text-on-surface-variant;
+  }
+
+  .table-header th {
+    @apply px-6 py-4 font-label-md uppercase tracking-wider;
+  }
+
+  .table-body td {
+    @apply px-6 py-4;
+  }
+
+  .table-row {
+    @apply hover:bg-surface-container-low transition-colors;
+  }
+
+  /* ---------- Badges / statuts ---------- */
+  .badge {
+    @apply inline-flex items-center px-2 py-1 rounded-md text-label-md font-bold;
+  }
+  .badge-success {
+    @apply bg-green-100 text-green-800;
+  }
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+  .badge-error {
+    @apply bg-red-100 text-red-800;
+  }
+  .badge-info {
+    @apply bg-blue-100 text-blue-800;
+  }
+  .badge-primary {
+    @apply bg-primary-container text-on-primary-container;
+  }
+  .badge-secondary {
+    @apply bg-secondary-container text-on-secondary-container;
+  }
+  .badge-tertiary {
+    @apply bg-tertiary-container text-on-tertiary;
+  }
+
+  /* ---------- Boutons ---------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold text-label-md transition-all active:scale-95;
+  }
+  .btn-primary {
+    @apply btn bg-primary text-on-primary hover:opacity-90 shadow-sm;
+  }
+  .btn-secondary {
+    @apply btn border border-outline-variant text-on-surface-variant hover:bg-surface-variant;
+  }
+  .btn-icon {
+    @apply p-2 rounded-full hover:bg-surface-container-low transition-colors;
+  }
+
+  /* ---------- Liens ---------- */
+  .link {
+    @apply text-primary font-medium hover:underline;
+  }
+
+  /* ---------- Champs de formulaire ---------- */
+  .input-field {
+    @apply w-full border border-outline-variant rounded-lg px-3 py-2 text-body-md bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-primary outline-none transition placeholder:text-on-surface-variant/50;
+  }
+
+  /* ---------- Titres ---------- */
+  .section-title {
+    @apply text-title-lg font-bold text-on-surface mb-4;
+  }
+  .spinner-border {
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+}

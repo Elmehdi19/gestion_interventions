@@ -1,0 +1,32 @@
+<div class="p-6">
+  <h2 class="text-2xl font-bold text-primary mb-6">Performances des techniciens</h2>
+  <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-outline-variant">
+    <table class="min-w-full">
+      <thead class="bg-surface-container-low">
+        <tr>
+          <th class="px-4 py-3 text-left">Technicien</th>
+          <th class="px-4 py-3 text-center">Nb interventions</th>
+          <th class="px-4 py-3 text-center">Clôturées</th>
+          <th class="px-4 py-3 text-center">Empêchées</th>
+          <th class="px-4 py-3 text-center">Durée moyenne (min)</th>
+          <th class="px-4 py-3 text-center">Taux clôture (%)</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant">
+        <tr *ngFor="let perf of performances" class="hover:bg-surface-container-low transition">
+          <td class="px-4 py-3 font-medium">{{ perf.nomComplet }}</td>
+          <td class="px-4 py-3 text-center">{{ perf.nbInterventions }}</td>
+          <td class="px-4 py-3 text-center">{{ perf.nbCloturees }}</td>
+          <td class="px-4 py-3 text-center">{{ perf.nbEmpechements }}</td>
+          <td class="px-4 py-3 text-center">{{ perf.dureeMoyenneMinutes | number:'1.0-0' }}</td>
+          <td class="px-4 py-3 text-center">
+            <span [class.text-success]="perf.tauxCloture >= 80" [class.text-warning]="perf.tauxCloture < 80" class="font-semibold">
+              {{ perf.tauxCloture | number:'1.0-0' }}%
+            </span>
+          </td>
+        <tr>
+        <tr *ngIf="performances.length === 0"><td colspan="6" class="text-center py-4">Aucune donnée disponible</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+  <div class="flex justify-between items-center mb-6">
+    <h3 class="font-title-lg text-title-lg font-bold">Spécialités</h3>
+    <button routerLink="/admin/specialites/new" class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg font-bold">
+      <span class="material-symbols-outlined text-[18px]">add</span> Ajouter
+    </button>
+  </div>
+  <table class="w-full text-left border-collapse">
+    <thead class="bg-surface-container text-on-surface-variant">
+      <tr>
+        <th class="px-6 py-4 font-label-md uppercase">ID</th>
+        <th class="px-6 py-4 font-label-md uppercase">Libellé</th>
+        <th class="px-6 py-4 text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of specialites" class="hover:bg-surface-container-low">
+        <td class="px-6 py-4 font-bold">{{ s.id }}</td>
+        <td class="px-6 py-4">{{ s.libelle }}</td>
+        <td class="px-6 py-4 text-right">
+          <button [routerLink]="['/admin/specialites', s.id]" class="p-2 hover:text-primary">
+            <span class="material-symbols-outlined">edit</span>
+          </button>
+          <button (click)="deleteSpecialite(s.id)" class="p-2 hover:text-error">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

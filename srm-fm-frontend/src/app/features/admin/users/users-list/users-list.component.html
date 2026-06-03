@@ -1,0 +1,39 @@
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+  <div class="p-lg border-b border-outline-variant flex justify-between items-center">
+    <h3 class="font-title-lg text-title-lg font-bold">Utilisateurs</h3>
+    <button routerLink="/admin/users/new" class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg hover:opacity-90 font-bold">
+      <span class="material-symbols-outlined text-[18px]">add</span>
+      Ajouter
+    </button>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead class="bg-surface-container text-on-surface-variant">
+        <tr>
+          <th class="px-6 py-4 font-label-md uppercase">Nom</th>
+          <th class="px-6 py-4 font-label-md uppercase">Email</th>
+          <th class="px-6 py-4 font-label-md uppercase">Rôle</th>
+          <th class="px-6 py-4 font-label-md uppercase text-center">Statut</th>
+          <th class="px-6 py-4 font-label-md uppercase text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant">
+        <tr *ngFor="let user of users" class="hover:bg-surface-container-low transition-colors">
+          <td class="px-6 py-4 font-bold">{{ user.nom }} {{ user.prenom }}</td>
+          <td class="px-6 py-4 text-label-md">{{ user.email }}</td>
+          <td class="px-6 py-4"><span class="px-2 py-1 rounded-md bg-secondary-container text-on-secondary-container text-label-md font-bold">{{ user.role }}</span></td>
+          <td class="px-6 py-4 text-center">
+            <span class="inline-block w-2 h-2 rounded-full" [class.bg-green-500]="user.actif" [class.bg-surface-dim]="!user.actif"></span>
+          </td>
+          <td class="px-6 py-4 text-right">
+            <button [routerLink]="['/admin/users', user.id]" class="p-2 hover:text-primary"><span class="material-symbols-outlined">edit</span></button>
+            <button class="p-2 hover:text-error"><span class="material-symbols-outlined">delete</span></button>
+          </td>
+        </tr>
+        <tr *ngIf="users.length === 0">
+          <td colspan="5" class="px-6 py-4 text-center text-on-surface-variant">Aucun utilisateur trouvé.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

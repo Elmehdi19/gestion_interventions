@@ -1,0 +1,82 @@
+<div class="space-y-8">
+  <div class="flex justify-between items-center">
+    <h2 class="text-headline-md text-on-surface">Tableau de bord Chef d'équipe</h2>
+    <div class="flex gap-2">
+      <a routerLink="/chef-equipe/interventions" class="btn-primary text-sm px-4 py-2">Interventions en attente</a>
+      <a routerLink="/chef-equipe/techniciens" class="btn-secondary text-sm px-4 py-2">Gérer mon équipe</a>
+    </div>
+  </div>
+
+  <!-- Indicateurs (cartes) -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Carte interventions en attente -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition">
+      <div class="flex items-center justify-between mb-2">
+        <span class="material-symbols-outlined text-3xl text-warning">pending_actions</span>
+        <span class="text-label-md text-on-surface-variant">À affecter</span>
+      </div>
+      <p class="text-display-lg font-bold text-primary">{{ nbInterventionsEnAttente }}</p>
+      <p class="text-body-md text-on-surface mt-1">intervention(s) en attente d’affectation</p>
+      <div class="mt-4">
+        <a routerLink="/chef-equipe/interventions" class="text-primary text-label-md font-medium hover:underline">Affecter →</a>
+      </div>
+    </div>
+
+    <!-- Carte techniciens -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition">
+      <div class="flex items-center justify-between mb-2">
+        <span class="material-symbols-outlined text-3xl text-primary">groups</span>
+        <span class="text-label-md text-on-surface-variant">Effectif</span>
+      </div>
+      <p class="text-display-lg font-bold text-primary">{{ nbTechniciens }}</p>
+      <p class="text-body-md text-on-surface mt-1">technicien(s) dans l’équipe</p>
+      <div class="mt-4">
+        <a routerLink="/chef-equipe/techniciens" class="text-primary text-label-md font-medium hover:underline">Voir l’équipe →</a>
+      </div>
+    </div>
+
+    <!-- Carte interventions en cours -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition">
+      <div class="flex items-center justify-between mb-2">
+        <span class="material-symbols-outlined text-3xl text-primary">construction</span>
+        <span class="text-label-md text-on-surface-variant">En cours</span>
+      </div>
+      <p class="text-display-lg font-bold text-primary">{{ nbInterventionsEnCours }}</p>
+      <p class="text-body-md text-on-surface mt-1">intervention(s) non clôturées</p>
+      <div class="mt-4">
+        <a routerLink="/chef-equipe/suivi" class="text-primary text-label-md font-medium hover:underline">Suivre →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Graphique d’activité -->
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+    <h3 class="text-title-md font-bold mb-4">Interventions affectées cette semaine</h3>
+    <div style="position: relative; height: 250px;">
+      <canvas id="activityChart"></canvas>
+    </div>
+    <p class="text-label-md text-on-surface-variant mt-4 text-center">
+      Simulations (données réelles après intégration backend)
+    </p>
+  </div>
+
+  <!-- Dernières interventions (optionnel) -->
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+    <h3 class="text-title-md font-bold mb-4">Dernières interventions affectées</h3>
+    <div class="space-y-2">
+      <div class="flex justify-between items-center border-b pb-2">
+        <span class="font-medium">INT-2026-00042</span>
+        <span class="text-label-md text-on-surface-variant">Technicien : Karim B.</span>
+        <span class="badge bg-success text-on-success">En cours</span>
+      </div>
+      <div class="flex justify-between items-center border-b pb-2">
+        <span class="font-medium">INT-2026-00041</span>
+        <span class="text-label-md text-on-surface-variant">Technicien : Sarah M.</span>
+        <span class="badge bg-warning text-on-warning">En attente</span>
+      </div>
+      <div class="text-center mt-3">
+        <a routerLink="/chef-equipe/interventions" class="text-primary text-label-md">Voir toutes les interventions →</a>
+      </div>
+    </div>
+  </div>
+</div>

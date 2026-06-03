@@ -1,0 +1,45 @@
+<div class="space-y-8">
+  <div class="flex justify-between items-center">
+    <h2 class="text-headline-md text-on-surface">Mon espace client</h2>
+    <div class="text-right">
+      <p class="text-label-md text-on-surface-variant">Bienvenue</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Carte réclamations -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition">
+      <div class="flex items-center justify-between mb-2">
+        <span class="material-symbols-outlined text-3xl text-primary">report_problem</span>
+        <span class="text-label-md text-on-surface-variant">Actives</span>
+      </div>
+      <p class="text-display-lg font-bold text-primary">{{ nbReclamationsActives }}</p>
+      <p class="text-body-md text-on-surface mt-1">réclamation(s) en cours</p>
+      <div class="mt-4">
+        <a routerLink="/client/claims" class="text-primary text-label-md font-medium hover:underline">Voir mes réclamations →</a>
+      </div>
+    </div>
+
+    <!-- Carte consommation -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition">
+      <div class="flex items-center justify-between mb-2">
+        <span class="material-symbols-outlined text-3xl text-primary">bar_chart</span>
+        <span class="text-label-md text-on-surface-variant">Aperçu</span>
+      </div>
+      <p class="text-display-lg font-bold text-primary">2 450 kWh</p>
+      <p class="text-body-md text-on-surface mt-1">consommation du mois dernier</p>
+      <div class="mt-4">
+        <a routerLink="/client/consommation" class="text-primary text-label-md font-medium hover:underline">Suivre ma consommation →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Graphique miniature (optionnel) -->
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+    <h3 class="text-title-md font-bold mb-4">Consommation récente (simulation)</h3>
+    <canvas id="miniChart" width="400" height="200" style="max-height: 200px;"></canvas>
+    <p class="text-label-md text-on-surface-variant mt-4 text-center">
+      Visualisation des 7 derniers jours (exemple)
+    </p>
+  </div>
+</div>

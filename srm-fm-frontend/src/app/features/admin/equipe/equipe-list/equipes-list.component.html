@@ -1,0 +1,33 @@
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+  <h3 class="font-title-lg text-title-lg font-bold mb-6">Équipes</h3>
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead class="bg-surface-container text-on-surface-variant">
+        <tr>
+          <th class="px-6 py-4 font-label-md uppercase">Nom</th>
+          <th class="px-6 py-4 font-label-md uppercase">Créneau horaire</th>
+          <th class="px-6 py-4 font-label-md uppercase">Chef d'équipe</th>
+          <th class="px-6 py-4 font-label-md uppercase">Techniciens</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant">
+        <tr *ngFor="let equipe of equipes" class="hover:bg-surface-container-low transition-colors">
+          <td class="px-6 py-4 font-bold">{{ equipe.nom }}</td>
+          <td class="px-6 py-4 text-label-md">{{ equipe.creneauHoraire }}</td>
+          <td class="px-6 py-4">{{ equipe.chefNom }}</td>
+          <td class="px-6 py-4">
+            <div class="flex flex-wrap gap-1">
+              <span *ngFor="let tech of equipe.techniciens" class="px-2 py-1 bg-secondary-container text-on-secondary-container rounded-md text-label-md">
+                {{ tech.prenom }} {{ tech.nom }}
+              </span>
+              <span *ngIf="equipe.techniciens.length === 0" class="text-on-surface-variant">Aucun</span>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="equipes.length === 0">
+          <td colspan="4" class="px-6 py-4 text-center text-on-surface-variant">Aucune équipe trouvée.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

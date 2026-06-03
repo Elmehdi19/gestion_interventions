@@ -1,0 +1,31 @@
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant flex flex-col py-md gap-2 z-50">
+  <div class="px-6 py-4 mb-4">
+    <h1 class="text-headline-md font-headline-md font-bold text-primary">{{ appName }}</h1>
+    <p class="text-label-md text-on-surface-variant">{{ subtitle }}</p>
+  </div>
+  <nav class="flex-grow space-y-1">
+    <a *ngFor="let item of menuItems"
+       [routerLink]="item.route"
+       routerLinkActive="bg-primary-container text-on-primary-container rounded-lg font-semibold"
+       [routerLinkActiveOptions]="{ exact: item.route === '/' }"
+       class="text-on-surface-variant hover:text-on-surface mx-2 px-4 py-3 flex items-center gap-3 hover:bg-surface-variant transition-all active:scale-[0.98]">
+      <span class="material-symbols-outlined">{{ item.icon }}</span>
+      <span class="font-label-md text-label-md font-medium">{{ item.label }}</span>
+    </a>
+  </nav>
+  <div class="px-4 py-4 mt-auto border-t border-outline-variant">
+    <button class="w-full bg-primary text-on-primary py-2 px-4 rounded-lg font-bold shadow-sm hover:opacity-90 transition-all">
+      {{ actionLabel }}
+    </button>
+    <div class="mt-4 space-y-1">
+      <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 flex items-center gap-3 font-label-md text-label-md" href="#">
+        <span class="material-symbols-outlined">help</span>
+        Help Center
+      </a>
+      <a class="text-on-surface-variant hover:text-on-surface px-4 py-2 flex items-center gap-3 font-label-md text-label-md" (click)="auth.logout()" style="cursor: pointer;">
+        <span class="material-symbols-outlined">logout</span>
+        Logout
+      </a>
+    </div>
+  </div>
+</aside>
