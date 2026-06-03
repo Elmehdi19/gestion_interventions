@@ -33,14 +33,12 @@
             "styles": [
               "src/styles.scss"
             ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
+            "outputMode": "static",             
+            "prerender": false,                 
             "security": {
               "allowedHosts": []
-            },
-            "ssr": {
-              "entry": "src/server.ts"
             }
+          
           },
           "configurations": {
             "production": {
@@ -68,19 +66,19 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-        "builder": "@angular/build:dev-server",
-        "configurations": {
-          "production": {
-            "buildTarget": "srm-fm-frontend:build:production"
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "srm-fm-frontend:build:production"
+            },
+            "development": {
+              "buildTarget": "srm-fm-frontend:build:development",
+              "proxyConfig": "proxy.conf.json"
+            }
           },
-          "development": {
-            "buildTarget": "srm-fm-frontend:build:development",
-            "proxyConfig": "proxy.conf.json"
-          }
-        },
-        "defaultConfiguration": "development"
+          "defaultConfiguration": "development"
+        }
       }
     }
-  }
   }
 }
